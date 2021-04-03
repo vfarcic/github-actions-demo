@@ -28,7 +28,8 @@ jobs:
       with:
         push: true
         # TODO: Replace with the secret
-        tags: vfarcic/github-actions-demo:latest
+        tags: |
+          vfarcic/github-actions-demo:latest
     # TODO: SemVer
     # TODO: Create a k3d cluster
     # TODO: Deploy
