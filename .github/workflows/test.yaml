@@ -27,7 +27,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
+        # TODO: Replace with the secret
+        tags: vfarcic/github-actions-demo:latest
     # - name: Builder instance name
     #   run: echo ${{ steps.buildx.outputs.name }}
     # - name: Available platforms
