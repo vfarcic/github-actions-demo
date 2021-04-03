@@ -1,6 +1,4 @@
 name: ci
-env:
-  DOCKERHUB_USERNAME: vfarcic
 on:
   # TODO: Remove
   push:
@@ -22,7 +20,7 @@ jobs:
     - name: Login to DockerHub
       uses: docker/login-action@v1 
       with:
-        username: ${{ env.DOCKERHUB_USERNAME }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build and push
       id: docker_build
@@ -30,7 +28,7 @@ jobs:
       with:
         push: true
         # TODO: Replace with the secret
-        tags: ${{ env.DOCKERHUB_USERNAME }}/github-actions-demo:latest
+        tags: vfarcic/github-actions-demo:latest
     # TODO: SemVer
     # TODO: Create a k3d cluster
     # TODO: Deploy
