@@ -52,6 +52,6 @@ jobs:
       run: |
         echo SOMETHING ${{steps.cluster.outputs.network}}
         kubectl get ing
-        curl localhost
+        curl ${{steps.cluster.outputs.network}}
     # TODO: Delete the branch (on merge)
     # TODO: Deploy to a "real" cluster (on merge)
