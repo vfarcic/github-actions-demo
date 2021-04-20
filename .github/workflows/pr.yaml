@@ -1,14 +1,10 @@
-name: ci
+name: pr
 on:
-  # TODO: Remove
-  push:
-    branches:
-    - master
   pull_request:
     branches:
     - master
 jobs:
-  buildx:
+  build:
     runs-on: ubuntu-latest
     steps:
     # There is no need to checkout. It's done directly by buildkit.
@@ -29,7 +25,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        # TODO: Replace with the secret
         tags: |
           vfarcic/github-actions-demo:latest
     # TODO: SemVer

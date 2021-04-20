@@ -1,11 +1,11 @@
-name: ci
+name: feature
 on:
   push:
     branches-ignore:
     - master
     - main
 jobs:
-  buildx:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Set up QEMU
