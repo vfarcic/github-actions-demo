@@ -36,18 +36,22 @@ jobs:
         tags: |
           vfarcic/github-actions-demo:latest
           vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
-    - name: something-else
-      run: |
-        pwd
     - name: Create a cluster
       uses: AbsaOSS/k3d-action@v1.4.0
       with:
         cluster-name: test
         args: >-
           --config k3d.yaml
-    - name: something
+    - name: Deploy the app
       run: |
         kustomize build kustomize/overlays/preview | kubectl apply --filename -
+    - name: Deploy the app
+      run: |
+        kustomize edit set image vfarcic/github-actions-demo=vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+        kustomize build kustomize/overlays/preview | kubectl apply --filename -
+    - name: Something
+      run: |
+        kubectl get deployment github-actions-demo -o yaml | grep image
     # TODO: Deploy
     # TODO: Simulate tests
     # TODO: Delete the branch (on merge)
