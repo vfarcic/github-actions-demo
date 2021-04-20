@@ -34,6 +34,9 @@ jobs:
         tags: |
           vfarcic/github-actions-demo:latest
           vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+    - name: something-else
+      run: |
+        pwd
     - name: Create a cluster
       uses: AbsaOSS/k3d-action@v1.4.0
       with:
