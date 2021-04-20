@@ -35,6 +35,7 @@ jobs:
         push: true
         tags: |
           vfarcic/github-actions-demo:latest
+          vfarcic/github-actions-demo:${{env.PR_NUMBER}}
     # TODO: Create a k3d cluster
     # TODO: Deploy
     # TODO: Simulate tests
