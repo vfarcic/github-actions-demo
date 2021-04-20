@@ -31,10 +31,16 @@ jobs:
         tags: |
           vfarcic/github-actions-demo:latest
           vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+  cluster:
+    runs-on: ubuntu-latest
+    steps:
     - name: Create a cluster
       uses: AbsaOSS/k3d-action@v1.4.0
       with:
         cluster-name: test
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
     - name: something
       run: |
         kubectl get nodes
