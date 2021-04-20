@@ -14,7 +14,7 @@ jobs:
     # - name: Checkout
     #   uses: actions/checkout@v2
     - name: something
-      run: env
+      run: PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') && echo PR $PR_NUMBER
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -32,7 +32,6 @@ jobs:
         push: true
         tags: |
           vfarcic/github-actions-demo:latest
-    # TODO: SemVer
     # TODO: Create a k3d cluster
     # TODO: Deploy
     # TODO: Simulate tests
