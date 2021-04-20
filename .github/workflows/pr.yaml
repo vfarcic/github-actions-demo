@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    # There is no need to checkout. It's done directly by buildkit.
+    # - name: Checkout
+    #   uses: actions/checkout@v2
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
