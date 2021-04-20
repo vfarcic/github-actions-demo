@@ -44,11 +44,9 @@ jobs:
           --config k3d.yaml
     - name: Deploy the app
       run: |
-        kustomize build kustomize/overlays/preview | kubectl apply --filename -
-    - name: Deploy the app
-      run: |
+        cd kustomize/overlays/preview
         kustomize edit set image vfarcic/github-actions-demo=vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
-        kustomize build kustomize/overlays/preview | kubectl apply --filename -
+        kustomize build | kubectl apply --filename -
     - name: Something
       run: |
         kubectl get deployment github-actions-demo -o yaml | grep image
