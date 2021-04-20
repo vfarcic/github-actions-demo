@@ -1,9 +1,5 @@
-name: ci
+name: pr
 on:
-  # TODO: Remove
-  push:
-    branches:
-    - master
   pull_request:
     branches:
     - master
