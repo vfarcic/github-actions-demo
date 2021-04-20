@@ -13,11 +13,6 @@ jobs:
     # There is no need to checkout. It's done directly by buildkit.
     # - name: Checkout
     #   uses: actions/checkout@v2
-    - name: something
-      run: |
-        echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') | tee $GITHUB_ENV
-    - name: something-else
-      run: echo ${{env.PR_NUMBER}}
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -40,7 +35,9 @@ jobs:
       uses: AbsaOSS/k3d-action@v1.4.0
       with:
         cluster-name: test
-    # TODO: Create a k3d cluster
+    - name: something
+      run: |
+        kubectl get nodes
     # TODO: Deploy
     # TODO: Simulate tests
     # TODO: Delete the branch (on merge)
