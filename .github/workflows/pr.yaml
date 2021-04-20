@@ -47,10 +47,8 @@ jobs:
         cd kustomize/overlays/preview
         kustomize edit set image vfarcic/github-actions-demo=vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
         kustomize build | kubectl apply --filename -
-    - name: Something
+    - name: Test
       run: |
-        kubectl get deployment github-actions-demo -o yaml | grep image
-    # TODO: Deploy
-    # TODO: Simulate tests
+        curl localhost
     # TODO: Delete the branch (on merge)
     # TODO: Deploy to a "real" cluster (on merge)

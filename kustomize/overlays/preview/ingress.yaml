@@ -18,4 +18,4 @@ spec:
            name: github-actions-demo
            port:
              number: 80
-    host: github-actions-demo.localhost
+    host: localhost
