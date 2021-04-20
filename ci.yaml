@@ -2,9 +2,11 @@ name: ci
 on:
   # TODO: Remove
   push:
-    branches: [ master ]
+    branches:
+    - master
   pull_request:
-    branches: [ master ]
+    branches:
+    - master
 jobs:
   buildx:
     runs-on: ubuntu-latest
