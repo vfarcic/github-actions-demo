@@ -38,6 +38,7 @@ jobs:
           vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
     - name: Create a cluster
       uses: AbsaOSS/k3d-action@v1.4.0
+      id: cluster
       with:
         cluster-name: test
         args: >-
@@ -49,6 +50,7 @@ jobs:
         kustomize build | kubectl apply --filename -
     - name: Test
       run: |
+        echo SOMETHING ${{steps.cluster.outputs.network}}
         kubectl get ing
         curl localhost
     # TODO: Delete the branch (on merge)
