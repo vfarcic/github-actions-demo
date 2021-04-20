@@ -49,6 +49,7 @@ jobs:
         kustomize build | kubectl apply --filename -
     - name: Test
       run: |
+        kubectl get ing
         curl localhost
     # TODO: Delete the branch (on merge)
     # TODO: Deploy to a "real" cluster (on merge)
