@@ -28,14 +28,18 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build and push
+    - name: Build and push container image
       id: docker_build
       uses: docker/build-push-action@v2
       with:
         push: true
         tags: |
           vfarcic/github-actions-demo:latest
-          vfarcic/github-actions-demo:${{env.PR_NUMBER}}
+          vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+    - name: Create a cluster
+      uses: AbsaOSS/k3d-action@v1.4.0
+      with:
+        cluster-name: test
     # TODO: Create a k3d cluster
     # TODO: Deploy
     # TODO: Simulate tests
