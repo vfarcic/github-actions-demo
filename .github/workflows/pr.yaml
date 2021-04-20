@@ -50,8 +50,6 @@ jobs:
         kustomize build | kubectl apply --filename -
     - name: Test
       run: |
-        echo SOMETHING ${{steps.cluster.outputs.network}}
-        kubectl get ing
-        curl ${{steps.cluster.outputs.network}}
+        curl localhost
     # TODO: Delete the branch (on merge)
     # TODO: Deploy to a "real" cluster (on merge)
