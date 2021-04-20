@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # There is no need to checkout. It's done directly by buildkit.
-    # - name: Checkout
-    #   uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Get PR number
       run: |
         echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') | tee $GITHUB_ENV
