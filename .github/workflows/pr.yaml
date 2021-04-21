@@ -1,8 +1,5 @@
 name: pr
 on:
-  push:
-    branches:
-    - master
   pull_request:
     branches:
     - master
@@ -51,4 +48,5 @@ jobs:
         kubectl rollout status deployment github-actions-demo
     - name: Test
       run: |
-        echo I was too lazy to write tests. If I wasn't, I would run them inside the k3d cluster created in the previous step
+        echo "I was too lazy to write tests. If I wasn't, I would run them inside the k3d cluster created in the previous step"
+
