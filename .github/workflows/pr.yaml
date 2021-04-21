@@ -30,8 +30,8 @@ jobs:
       with:
         push: true
         tags: |
-          vfarcic/github-actions-demo:latest
-          vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+          ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{env.PR_NUMBER}}
     - name: Create a cluster
       uses: AbsaOSS/k3d-action@v1.4.0
       id: cluster
@@ -42,7 +42,7 @@ jobs:
     - name: Deploy the app
       run: |
         cd kustomize/overlays/preview
-        kustomize edit set image vfarcic/github-actions-demo=vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+        kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo=${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{env.PR_NUMBER}}
         kustomize build | kubectl apply --filename -
         kubectl rollout status deployment github-actions-demo
     - name: Test
