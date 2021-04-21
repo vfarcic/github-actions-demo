@@ -49,4 +49,3 @@ jobs:
     - name: Test
       run: |
         echo "I was too lazy to write tests. If I wasn't, I would run them inside the k3d cluster created in the previous step"
-
