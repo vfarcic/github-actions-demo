@@ -1,1 +1,1 @@
-I am too lazy to write README
+Is this a feature?
