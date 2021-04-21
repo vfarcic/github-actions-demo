@@ -1,0 +1,52 @@
+name: pr
+on:
+  push:
+    branches:
+    - main
+    - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # There is no need to checkout. It's done directly by buildkit.
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Get PR number
+      run: |
+        echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') | tee $GITHUB_ENV
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push container image
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: |
+          vfarcic/github-actions-demo:latest
+          vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+    - name: Create a cluster
+      uses: AbsaOSS/k3d-action@v1.4.0
+      id: cluster
+      with:
+        cluster-name: test
+        args: >-
+          --config k3d.yaml
+    - name: Deploy the app
+      run: |
+        cd kustomize/overlays/preview
+        kustomize edit set image vfarcic/github-actions-demo=vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+        kustomize build | kubectl apply --filename -
+        kubectl rollout status deployment github-actions-demo
+    - name: Test
+      run: |
+        echo "I was too lazy to write tests. If I wasn't, I would run them inside the k3d cluster created in the previous step"
