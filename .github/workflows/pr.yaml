@@ -7,7 +7,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    # There is no need to checkout. It's done directly by buildkit.
     - name: Checkout
       uses: actions/checkout@v2
       with:
