@@ -1,5 +1,8 @@
 name: pr
 on:
+  push:
+    branches:
+    - master
   pull_request:
     branches:
     - master
@@ -8,8 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # There is no need to checkout. It's done directly by buildkit.
-    # - name: Checkout
-    #   uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Get PR number
+      run: |
+        echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') | tee $GITHUB_ENV
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -20,16 +28,30 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build and push
+    - name: Build and push container image
       id: docker_build
       uses: docker/build-push-action@v2
       with:
         push: true
         tags: |
           vfarcic/github-actions-demo:latest
-    # TODO: SemVer
-    # TODO: Create a k3d cluster
-    # TODO: Deploy
-    # TODO: Simulate tests
+          vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+    - name: Create a cluster
+      uses: AbsaOSS/k3d-action@v1.4.0
+      id: cluster
+      with:
+        cluster-name: test
+        args: >-
+          --config k3d.yaml
+    - name: Deploy the app
+      run: |
+        cd kustomize/overlays/preview
+        kustomize edit set image vfarcic/github-actions-demo=vfarcic/github-actions-demo:pr-${{env.PR_NUMBER}}
+        kustomize build | kubectl apply --filename -
+        kubectl rollout status deployment github-actions-demo
+    - name: Test
+      run: |
+        sleep 10
+        curl localhost
     # TODO: Delete the branch (on merge)
     # TODO: Deploy to a "real" cluster (on merge)
