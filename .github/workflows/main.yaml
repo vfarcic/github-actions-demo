@@ -9,8 +9,8 @@ jobs:
     steps:
     - name: Create a release
       uses: release-drafter/release-drafter@v5
-      # env:
-      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 # TODO: Create a tag and a release
 # TODO: Create release notes
 # TODO: Deploy to prod
