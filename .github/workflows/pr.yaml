@@ -37,8 +37,31 @@ jobs:
         args: >-
           --config k3d.yaml
     # TODO: Switch to an image
-    - name: Install Ketch
-      
+    - name: Deploy the app
+      run: |
+        curl -s https://raw.githubusercontent.com/shipa-corp/ketch/main/install.sh | bash
+        kubectl apply --validate=false --filename https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.yaml
+        echo "apiVersion: cert-manager.io/v1
+        kind: ClusterIssuer
+        metadata:
+          name: le 
+        spec:
+          acme:
+            server: https://acme-v02.api.letsencrypt.org/directory
+            privateKeySecretRef:
+              name: my-account-key
+            solvers:
+            - http01:
+              ingress:
+                class: istio" | kubectl apply --filename -
+        kubectl apply --filename https://github.com/shipa-corp/ketch/releases/download/v0.2.0/ketch-controller.yaml
+        kubectl --namespace ketch-system rollout status deployment ketch-controller-manager
+        ketch pool add dev
+        ketch app create bulletinboard --pool dev
+        ketch app deploy bulletinboard -i docker.io/shipasoftware/bulletinboard:1.0
+
+        kubectl get ns
+        kubectl --namespace ketch-dev get pods,svc
     - name: Deploy the app
       run: |
         cd kustomize/overlays/preview
