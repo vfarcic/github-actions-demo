@@ -1,0 +1,16 @@
+name: main
+on:
+  push:
+    branches:
+    - master
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create a release
+      uses: release-drafter/release-drafter@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy the release
+      run: |
+        echo "I was too lazy to create a cluster so there is nowhere to deploy."

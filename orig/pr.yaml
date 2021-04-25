@@ -36,9 +36,6 @@ jobs:
         cluster-name: test
         args: >-
           --config k3d.yaml
-    # TODO: Switch to an image
-    - name: Install Ketch
-      
     - name: Deploy the app
       run: |
         cd kustomize/overlays/preview
