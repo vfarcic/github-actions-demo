@@ -50,6 +50,6 @@ jobs:
         echo $ADDR
         echo "333"
         kubectl get svc,ing
-        curl 172.16.0.0
+        curl $ADDR
 
         kubectl run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demo"
