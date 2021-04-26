@@ -41,4 +41,5 @@ jobs:
         kubectl rollout status deployment github-actions-demo
     - name: Test
       run: |
-        kubectl run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demoxxx"
+        echo ${{ steps.single-cluster.outputs.network }} ${{ steps.single-cluster.outputs.subnet-CIDR }}
+        kubectl run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demo"
