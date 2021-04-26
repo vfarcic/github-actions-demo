@@ -28,7 +28,6 @@ jobs:
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
     - name: Create a cluster
-      id: cluster
       uses: AbsaOSS/k3d-action@v1.4.0
       with:
         cluster-name: test
