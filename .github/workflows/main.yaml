@@ -13,4 +13,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Deploy the release
       run: |
+        env
         echo "I was too lazy to create a cluster so there is nowhere to deploy."
