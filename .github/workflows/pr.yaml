@@ -28,6 +28,7 @@ jobs:
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
     - name: Create a cluster
+      id: cluster
       uses: AbsaOSS/k3d-action@v1.4.0
       with:
         cluster-name: test
@@ -41,5 +42,5 @@ jobs:
         kubectl rollout status deployment github-actions-demo
     - name: Test
       run: |
-        echo ${{ steps.single-cluster.outputs.network }} ${{ steps.single-cluster.outputs.subnet-CIDR }}
+        echo ${{ steps.cluster.outputs.network }} ${{ steps.cluster.outputs.subnet-CIDR }}
         kubectl run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demo"
