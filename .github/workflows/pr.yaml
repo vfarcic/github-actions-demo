@@ -42,4 +42,4 @@ jobs:
         kubectl rollout status deployment github-actions-demo
     - name: Test
       run: |
-        kubectl run test --image alpine -i --restart Never -- sh -c "apk add --update curl && curl github-actions-demoxxx"
+        kubectl run test --image alpine -i --restart Never -- sh -c "apk add --update curl && curl github-actions-demo"
