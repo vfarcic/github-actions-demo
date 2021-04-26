@@ -41,4 +41,4 @@ jobs:
         kubectl rollout status deployment github-actions-demo
     - name: Test
       run: |
-        echo "I was too lazy to write tests. If I wasn't, I would run them inside the k3d cluster created in the previous step"
+        kubectl run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demo"
