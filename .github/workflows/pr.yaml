@@ -43,7 +43,12 @@ jobs:
     - name: Test
       run: |
         sleep 5
+        echo "111"
         echo ${{ steps.cluster.outputs.network }} ${{ steps.cluster.outputs.subnet-CIDR }}
+        export ADDR=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${{ steps.cluster.outputs.subnet-CIDR }})
+        echo "222"
+        echo $ADDR
+        echo "333"
         kubectl get svc,ing
         curl 172.16.0.0
 
