@@ -42,14 +42,4 @@ jobs:
         kubectl rollout status deployment github-actions-demo
     - name: Test
       run: |
-        sleep 5
-        echo "111"
-        echo ${{ steps.cluster.outputs.network }} ${{ steps.cluster.outputs.subnet-CIDR }}
-        echo "222"
-        ADDR=$(ip route show | awk '/default/ {print $3}')
-        echo $ADDR
-        echo "333"
-        kubectl get svc,ing
-        curl $ADDR
-
-        kubectl run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demo"
+        kubectl run test --image alpine -i --restart Never -- sh -c "apk add --update curl && curl github-actions-demoxxx"
