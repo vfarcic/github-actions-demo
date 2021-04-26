@@ -45,6 +45,6 @@ jobs:
         sleep 5
         echo ${{ steps.cluster.outputs.network }} ${{ steps.cluster.outputs.subnet-CIDR }}
         kubectl get svc,ing
-        curl ${{ steps.cluster.outputs.network }}
+        curl ${{ steps.cluster.outputs.subnet-CIDR }}
 
         kubectl run test --image alpine -i --rm -- sh -c "apk add --update curl && curl github-actions-demo"
