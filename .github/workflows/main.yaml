@@ -16,7 +16,7 @@ jobs:
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: rickstaa/action-get-semver@v1
-      name: Print semver
+    - name: Print semver
       id: get_semver
       with:
         bump_level: "minor"
