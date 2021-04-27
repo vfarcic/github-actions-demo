@@ -8,33 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - id: bump
-      uses: zwaldowski/match-label-action@v1
-      with:
-        allowed: major,minor,patch
-    - uses: zwaldowski/semver-release-action@v1
-      with:
-        bump: ${{ steps.bump.outputs.match }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-    # - name: Get previous tag
-    #   id: previoustag
-    #   uses: "WyriHaximus/github-action-get-previous-tag@v1"
-    #   with:
-    #     fallback: 1.0.0
-    #   env:
-    #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-    # - name: 'Get next minor version'
-    #   id: semvers
-    #   uses: "WyriHaximus/github-action-next-semvers@v1"
-    #   with:
-    #     version: ${{ steps.previoustag.outputs.tag }}
-    # - name: 'Create new milestone'
-    #   id: createmilestone
-    #   uses: "WyriHaximus/github-action-create-milestone@v1"
-    #   with:
-    #     title: ${{ steps.semvers.outputs.patch }}
-    #   env:
-    #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     - name: Deploy the release
       run: |
-        echo "${{ steps.semvers.outputs.patch }}"
+        echo "${{ github.event.payload.head }}"
