@@ -19,10 +19,13 @@ jobs:
     - name: Deploy the release
       run: |
         echo $GITHUB_SHA
+        echo xxx
+        echo ${{ github.event.push.ref }}
+        echo ${{ github.event.push.after }}
     - name: Build and push container image
       uses: docker/build-push-action@v2
       with:
         push: true
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
-          ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:${{ env.GITHUB_SHA }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:${{ github.event.push.after }}
