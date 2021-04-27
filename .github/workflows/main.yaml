@@ -7,17 +7,25 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Tag
-      id: tag
-      uses: K-Phoen/semver-release-action@master
+    - uses: actions/checkout@v2
+    # - name: Tag
+    #   id: tag
+    #   uses: K-Phoen/semver-release-action@master
+    #   with:
+    #     release_branch: master
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: rickstaa/action-get-semver@v1
+    - name: Print semver
+      id: get_semver
       with:
-        release_branch: master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: something
+        bump_level: "minor"
       run: |
-        echo "tag ${{ steps.tag.outputs.tag }}"
+        echo "Current version: ${{ steps.get_semver.outputs.current_version  }}"
+        echo "Next version: ${{ steps.get_semver.outputs.next_version }}"    
+    # - name: something
+    #   run: |
+    #     echo "tag ${{ steps.tag.outputs.tag }}"
     # - name: Create a release
     #   uses: release-drafter/release-drafter@v5
     #   env:
