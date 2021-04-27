@@ -7,11 +7,22 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - name: Create a release
-      uses: release-drafter/release-drafter@v5
+    - uses: actions/checkout@v1
+    - name: Tag
+      id: tag
+      uses: K-Phoen/semver-release-action@master
+      with:
+        release_branch: master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Deploy the release
+    - name: something
       run: |
-        env
-        echo "I was too lazy to create a cluster so there is nowhere to deploy."
+        echo "tag ${{ steps.tag.outputs.tag }}"
+    # - name: Create a release
+    #   uses: release-drafter/release-drafter@v5
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Deploy the release
+    #   run: |
+    #     env
+    #     echo "I was too lazy to create a cluster so there is nowhere to deploy."
