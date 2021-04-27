@@ -27,13 +27,14 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:${{ github.sha }}
+    - uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
     - name: Deploy the app
       run: |
-        echo ${{ secrets.KUBE_CONFIG }}
-        cd kustomize/overlays/production
-        echo ${{ secrets.KUBE_CONFIG }} > kubeconfig.yaml
-        export KUBECONFIG=$PWD/kubeconfig.yaml
-        cat $KUBECONFIG
+        kubectl config view
         kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo=${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:$GITHUB_SHA
         kustomize build | kubectl apply --filename -
         kubectl --namespace production rollout status deployment github-actions-demo
+ 
