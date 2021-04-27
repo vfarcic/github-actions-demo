@@ -16,13 +16,13 @@ jobs:
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: rickstaa/action-get-semver@v1
-    - name: Print semver
+      name: Print semver
       id: get_semver
       with:
         bump_level: "minor"
-      # run: |
-      #   echo "Current version: ${{ steps.get_semver.outputs.current_version  }}"
-      #   echo "Next version: ${{ steps.get_semver.outputs.next_version }}"    
+      run: |
+        echo "Current version: ${{ steps.get_semver.outputs.current_version  }}"
+        echo "Next version: ${{ steps.get_semver.outputs.next_version }}"    
     # - name: something
     #   run: |
     #     echo "tag ${{ steps.tag.outputs.tag }}"
