@@ -29,10 +29,11 @@ jobs:
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:${{ github.sha }}
     - name: Deploy the app
       run: |
+        echo ${{ secrets.KUBE_CONFIG }}
         cd kustomize/overlays/production
-        echo ${{ secrets.DOCKERHUB_USERNAME }} > kubeconfig.yaml
+        echo ${{ secrets.KUBE_CONFIG }} > kubeconfig.yaml
         export KUBECONFIG=$PWD/kubeconfig.yaml
         cat $KUBECONFIG
         kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo=${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:$GITHUB_SHA
         kustomize build | kubectl apply --filename -
-        kubectl rollout status deployment github-actions-demo
+        kubectl --namespace production rollout status deployment github-actions-demo
