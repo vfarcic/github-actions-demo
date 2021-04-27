@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: 'Get Previous tag'
+    - name: Get previous tag
       id: previoustag
       uses: "WyriHaximus/github-action-get-previous-tag@v1"
       with:
@@ -29,6 +29,5 @@ jobs:
       #   GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     - name: Deploy the release
       run: |
-        env
-        echo "I was too lazy to create a cluster so there is nowhere to deploy."
         echo "${{ steps.semvers.outputs.patch }}"
+
