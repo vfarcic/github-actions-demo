@@ -16,14 +16,6 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Deploy the release
-      run: |
-        echo $GITHUB_SHA
-        echo yyy
-        echo ${{ github.event }}
-        echo xxx
-        echo ${{ github.event.push.ref }}
-        echo ${{ github.event.push.after }}
     - name: Build and push container image
       uses: docker/build-push-action@v2
       with:
@@ -31,3 +23,9 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:${{ github.sha }}
+    - name: Deploy the app
+      run: |
+        cd kustomize/overlays/preview
+        kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo=${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:$GITHUB_SHA
+        kustomize build | kubectl apply --filename -
+        kubectl rollout status deployment github-actions-demo
