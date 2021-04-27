@@ -30,4 +30,4 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
-          ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:${{ github.event.push.after }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:${{ env.GITHUB_RUN_NUMBER }}
