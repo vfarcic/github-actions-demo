@@ -20,9 +20,9 @@ jobs:
       id: get_semver
       with:
         bump_level: "minor"
-      run: |
-        echo "Current version: ${{ steps.get_semver.outputs.current_version  }}"
-        echo "Next version: ${{ steps.get_semver.outputs.next_version }}"    
+      # run: |
+      #   echo "Current version: ${{ steps.get_semver.outputs.current_version  }}"
+      #   echo "Next version: ${{ steps.get_semver.outputs.next_version }}"    
     # - name: something
     #   run: |
     #     echo "tag ${{ steps.tag.outputs.tag }}"
