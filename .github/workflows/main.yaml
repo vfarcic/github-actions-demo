@@ -20,7 +20,7 @@ jobs:
       run: |
         echo $GITHUB_SHA
         echo yyy
-        echo ${{ github.event.push.after }}
+        echo ${{ github.event }}
         echo xxx
         echo ${{ github.event.push.ref }}
         echo ${{ github.event.push.after }}
