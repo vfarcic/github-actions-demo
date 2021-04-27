@@ -16,6 +16,9 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Deploy the release
+      run: |
+        echo $GITHUB_SHA
     - name: Build and push container image
       uses: docker/build-push-action@v2
       with:
@@ -23,6 +26,3 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:${{ env.GITHUB_SHA }}
-    - name: Deploy the release
-      run: |
-        GITHUB_SHA
