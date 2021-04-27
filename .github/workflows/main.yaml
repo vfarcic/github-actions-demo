@@ -30,4 +30,3 @@ jobs:
     - name: Deploy the release
       run: |
         echo "${{ steps.semvers.outputs.patch }}"
-
