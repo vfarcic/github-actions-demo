@@ -22,7 +22,7 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:latest
-          ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-$GITHUB_SHA
+          ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:${{ env.GITHUB_SHA }}
     - name: Deploy the release
       run: |
         GITHUB_SHA
