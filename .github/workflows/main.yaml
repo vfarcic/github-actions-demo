@@ -35,8 +35,10 @@ jobs:
       run: |
         echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
         echo xxx $KUBECONFIG
+        kubectl config current-context 
         export KUBECONFIG=$PWD/kubeconfig.yaml
         echo yyy $KUBECONFIG
+        kubectl config current-context 
         kubectl get nodes
     # - name: Deploy the app
     #   run: |
