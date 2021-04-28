@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
 - ../../base
 - hpa.yaml
-- istio.yaml
-- rollout.yaml
+- ingress.yaml
 namespace: production
 
