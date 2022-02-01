@@ -27,11 +27,12 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo:pr-${{ github.event.pull_request.number }}
     - name: Create a cluster
-      uses: AbsaOSS/k3d-action@v1.4.0
+      uses: AbsaOSS/k3d-action@v2.1.0
       with:
         cluster-name: test
         args: >-
           --config k3d.yaml
+          --agents 1
     - name: Deploy the app
       run: |
         cd kustomize/overlays/preview
