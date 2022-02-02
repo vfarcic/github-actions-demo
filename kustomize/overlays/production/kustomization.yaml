@@ -4,5 +4,5 @@ resources:
 - ../../base
 - hpa.yaml
 - ingress.yaml
-namespace: production
+namespace: github-actions-demo
 
